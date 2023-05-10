@@ -1,0 +1,72 @@
+import math
+
+def szyfr_skokowy(k, W):
+    n = len(W)
+    m = math.ceil(n/k)
+    tabela = [[''] * m for _ in range(k)]
+    szyfr = ''
+
+    index = 0
+    for j in range(m):
+        for i in range(k):
+            if index < n:
+                tabela[i][j] = W[index]
+                index += 1
+
+    for j in range(m):
+        if j % 2 == 0:
+            for i in range(k):
+                szyfr += tabela[i][j]
+        else:
+            for i in range(k-1, -1, -1):
+                szyfr += tabela[i][j]
+
+    return szyfr
+
+def deszyfr_skokowy(k, X):
+    n = len(X)
+    m = math.ceil(n/k)
+    tabela = [[''] * m for _ in range(k)]
+    tekst = ''
+
+    index = 0
+    for j in range(m):
+        if j % 2 == 0:
+            for i in range(k):
+                tabela[i][j] = X[index]
+                index += 1
+        else:
+            for i in range(k-1, -1, -1):
+                tabela[i][j] = X[index]
+                index += 1
+
+    for i in range(k):
+        for j in range(m):
+            tekst += tabela[i][j]
+
+    return tekst[:n]
+
+# Przykład 31.1
+k = 3
+W = "ZADANIE1JESTŁATWE"
+szyfrogram = szyfr_skokowy(k, W)
+print("Szyfrogram:", szyfrogram)
+
+# Przykład 31.2
+k = 4
+W = "ZADANIE1JESTPROSTE"
+szyfrogram = szyfr_skokowy(k, W)
+print("Szyfrogram:", szyfrogram)
+
+# Przykład 31.3
+k = 3
+X = "SRNZOIYWEFA"
+tekst = deszyfr_skokowy(k, X)
+print("Tekst:", tekst)
+
+# Przykład 31.4
+k = 3
+W = "SZYFROWANIE"
+szyfrogram = szyfr_skokowy(k, W)
+print("Szyfrogram:", szyfrogram)
+
