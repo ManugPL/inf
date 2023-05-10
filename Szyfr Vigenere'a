@@ -1,0 +1,52 @@
+def szyfruj_vigenere(tekst, klucz):
+    szyfrogram = ""
+    klucz = klucz.upper()
+    tekst = tekst.upper()
+
+    klucz_dlugosc = len(klucz)
+    pozycje_klucza = [ord(znak) - 65 for znak in klucz]
+
+    for i, znak in enumerate(tekst):
+        if znak.isalpha():
+            pozycja_klucza = pozycje_klucza[i % klucz_dlugosc]
+            przesuniecie = (ord(znak) - 65 + pozycja_klucza) % 26
+            znak_szyfrowany = chr(przesuniecie + 65)
+            szyfrogram += znak_szyfrowany
+        else:
+            szyfrogram += znak
+
+    return szyfrogram
+
+
+def deszyfruj_vigenere(szyfrogram, klucz):
+    tekst_jawny = ""
+    klucz = klucz.upper()
+    szyfrogram = szyfrogram.upper()
+
+    klucz_dlugosc = len(klucz)
+    pozycje_klucza = [ord(znak) - 65 for znak in klucz]
+
+    for i, znak in enumerate(szyfrogram):
+        if znak.isalpha():
+            pozycja_klucza = pozycje_klucza[i % klucz_dlugosc]
+            przesuniecie = (ord(znak) - 65 - pozycja_klucza) % 26
+            znak_deszyfrowany = chr(przesuniecie + 65)
+            tekst_jawny += znak_deszyfrowany
+        else:
+            tekst_jawny += znak
+
+    return tekst_jawny
+
+
+tekst = input("Podaj tekst jawny: ")
+klucz = input("Podaj słowo klucz: ")
+opcja = input("Wybierz opcję - szyfruj (s) lub deszyfruj (d): ")
+
+if opcja.lower() == "s":
+    szyfrogram = szyfruj_vigenere(tekst, klucz)
+    print("Szyfrogram:", szyfrogram)
+elif opcja.lower() == "d":
+    tekst_jawny = deszyfruj_vigenere(tekst, klucz)
+    print("Tekst jawny:", tekst_jawny)
+else:
+    print("Nieprawidłowa opcja. Wybierz 's' (szyfruj) lub 'd' (deszyfruj).")
