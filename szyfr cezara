@@ -1,0 +1,24 @@
+def szyfruj_deszyfruj(n, tekst, o):
+    tekst_zaszyfrowany = ""
+    for znak in tekst:
+        if znak.isalpha():
+            znak_przesuniety = chr((ord(znak) - 65 + n * o) % 26 + 65)
+            tekst_zaszyfrowany += znak_przesuniety
+    return tekst_zaszyfrowany
+
+n = int(input("Podaj przesunięcie: "))
+tekst = input("Podaj tekst: ")
+o = int(input("Szyfruj (1) czy deszyfruj (0)? "))
+
+if o == 1:
+    tekst_zaszyfrowany = szyfruj_deszyfruj(n, tekst.upper(), 1)
+    print("Przesunięcie:", n)
+    print("Tekst:", tekst)
+    print("Tekst zaszyfrowany:", tekst_zaszyfrowany)
+elif o == 0:
+    tekst_deszyfrowany = szyfruj_deszyfruj(n, tekst.upper(), -1)
+    print("Przesunięcie:", n)
+    print("Tekst:", tekst)
+    print("Tekst odszyfrowany:", tekst_deszyfrowany)
+else:
+    print("Nieprawidłowa opcja. Wybierz 1 (szyfruj) lub 0 (deszyfruj).")
