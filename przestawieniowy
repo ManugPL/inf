@@ -1,0 +1,16 @@
+def szyfr_przestawieniowy(d, tekst):
+    s = d
+    szyfr = [''] * s
+
+    for i in range(d):
+        szyfr[(2*i) % s] = tekst[i]
+
+    return s, szyfr
+
+# Przykład użycia
+d = 10
+tekst = ['T', 'O', ' ', 'J', 'E', 'S', 'T', ' ', 'T', 'E', 'K', 'S', 'T']
+s, szyfr = szyfr_przestawieniowy(d, tekst)
+
+print("Długość tekstu po zaszyfrowaniu:", s)
+print("Tekst po zaszyfrowaniu:", szyfr)
